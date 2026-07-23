@@ -4,6 +4,20 @@ Fourth app in the series (وقتي → أرقامي → حروفي → **أشك�
 throughout: singleton services, Hive persistence, `flutter_tts` (ar-SA),
 child-directed AdMob, no external image/model assets.
 
+## ⚠️ If you built this before and got a blank screen on install
+
+The previous zip was missing the real native `android/` project — only
+empty placeholder folders. This zip now includes a complete, working
+`android/` project. The specific bug that caused "nothing after install":
+**`google_mobile_ads` crashes the app on startup if `AndroidManifest.xml`
+is missing the AdMob `APPLICATION_ID` meta-data tag** — since
+`MobileAds.instance.initialize()` runs in `main()` before `runApp()`, the
+app dies before drawing a single frame. That tag is now in
+`android/app/src/main/AndroidManifest.xml`, currently set to Google's
+public **test** App ID so it runs immediately. Also fixed: `pubspec.yaml`
+referenced an `assets/images/` folder that didn't exist, which can fail
+the build outright — that folder now exists.
+
 ## What's included
 
 - **13 chapters** (locked spec): 10 shape units + 2 review chapters (spaced
@@ -36,10 +50,41 @@ child-directed AdMob, no external image/model assets.
 
 ## Setup
 
+**One-time step first:** this zip includes the Android manifest, Gradle
+config, MainActivity, and launcher icons (the pieces with the actual
+AdMob fix), but not the Gradle wrapper binary (`gradle-wrapper.jar`) —
+that's a binary file I can't hand-write, and downloading it needs Google's
+Gradle services domain which isn't reachable from here. Run this once
+after unzipping, from the project root:
+
+```bash
+flutter create .
+```
+
+This is safe — `flutter create .` never overwrites files that already
+exist, it only fills in what's missing (the wrapper jar, `gradlew` /
+`gradlew.bat` scripts, and an `ios/` folder if you want one later). Your
+`AndroidManifest.xml` with the AdMob fix, `lib/`, and everything else
+stays untouched.
+
+Then:
 ```bash
 flutter pub get
 flutter run
 ```
+
+If `android/local.properties` is missing (it's git-ignored, not shipped),
+Flutter regenerates it automatically on your machine on `flutter pub get` /
+first run — you don't need to create it by hand. If it doesn't, copy
+`android/local.properties.example` to `android/local.properties` and fill
+in your `sdk.dir` (Android SDK path) and `flutter.sdk` (Flutter SDK path).
+
+To build a release APK:
+```bash
+flutter build apk --release
+```
+It's signed with the debug keystore for now (so this command just works),
+swap in your own release keystore before publishing to the Play Store.
 
 ### Still needed before shipping
 
