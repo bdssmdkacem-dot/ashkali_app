@@ -1,46 +1,47 @@
 name: ashkali
-description: "أشكالي - Arabic Shapes Learning App for Kids (3D shapes, sound, series-consistent architecture)"
-publish_to: 'none'
+description: "أشكالي - Arabic Shapes Learning App for Kids"
+
+publish_to: "none"
+
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.0 <4.0.0'
+  sdk: ">=3.7.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  # Persistence - same as وقتي / أرقامي / حروفي
+  cupertino_icons: ^1.0.8
+
+  provider: ^6.1.5
+
   hive: ^2.2.3
   hive_flutter: ^1.1.0
 
-  # Arabic TTS
-  flutter_tts: ^4.0.2
+  path_provider: ^2.1.5
 
-  # Sound effects (tap / success / error / complete)
-  audioplayers: ^6.0.0
+  flutter_tts: ^4.2.5
 
-  # Ads - child-directed treatment, same as series
-  google_mobile_ads: ^5.1.0
+  audioplayers: ^6.5.0
 
-  # State
-  provider: ^6.1.2
+  google_mobile_ads: ^6.0.0
 
-  # Utility
-  path_provider: ^2.1.3
   vector_math: ^2.1.4
-
-  cupertino_icons: ^1.0.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+  build_runner: ^2.5.4
+
   hive_generator: ^2.0.1
-  build_runner: ^2.4.9
-  flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true
+
   assets:
-    - assets/sounds/
     - assets/images/
+    - assets/sounds/
