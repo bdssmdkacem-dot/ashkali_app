@@ -14,19 +14,24 @@ dependencies:
 
   cupertino_icons: ^1.0.8
 
-  provider: ^6.1.5
-
+  # Local persistence
   hive: ^2.2.3
   hive_flutter: ^1.1.0
 
-  path_provider: ^2.1.5
-
+  # Arabic text-to-speech
   flutter_tts: ^4.2.5
 
+  # Sound effects
   audioplayers: ^6.5.0
 
+  # Google Mobile Ads
   google_mobile_ads: ^6.0.0
 
+  # State management
+  provider: ^6.1.5
+
+  # Utilities
+  path_provider: ^2.1.5
   vector_math: ^2.1.4
 
 dev_dependencies:
@@ -35,13 +40,16 @@ dev_dependencies:
 
   flutter_lints: ^6.0.0
 
-  build_runner: ^2.5.4
+  # Hive code generation
+  hive_generator: 2.0.1
 
-  hive_generator: ^2.0.1
+  # IMPORTANT:
+  # Do NOT use ^2.5.4 here.
+  build_runner: 2.4.13
 
 flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/
     - assets/sounds/
+    - assets/images/
