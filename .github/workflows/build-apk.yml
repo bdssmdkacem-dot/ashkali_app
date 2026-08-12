@@ -1,11 +1,7 @@
-name: Build APK
+name: Android APK
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-      - master
 
 jobs:
   build:
@@ -22,17 +18,14 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.41.9
+          channel: stable
+          cache: true
 
-      - run: flutter doctor -v
+      - name: Clean
+        run: flutter clean
 
-      - name: Generate Android project
-        run: flutter create .
+      - name: Get packages
+        run: flutter pub get
 
-      - run: flutter pub get
-
-      - run: flutter build apk --debug
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ashkali-debug-apk
-          path: build/app/outputs/flutter-apk/app-debug.apk
+      - name: Build APK
+        run: flutter build apk --debug
