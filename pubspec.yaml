@@ -43,8 +43,7 @@ dev_dependencies:
   # Hive code generation
   hive_generator: 2.0.1
 
-  # IMPORTANT:
-  # Do NOT use ^2.5.4 here.
+  # Compatible with hive_generator 2.0.1
   build_runner: 2.4.13
 
 flutter:
