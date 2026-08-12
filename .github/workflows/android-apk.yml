@@ -29,8 +29,17 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Flutter Doctor
-        run: flutter doctor -v
+      - name: Show Flutter version
+        run: flutter --version
+
+      - name: Verify project
+        run: |
+          echo "=== PUBSPEC ==="
+          grep -n "build_runner\|hive_generator" pubspec.yaml || true
+          echo "=== WORKFLOWS ==="
+          find .github/workflows -type f -maxdepth 1 -print || true
+          echo "=== PLATFORMS ==="
+          ls -la
 
       - name: Clean
         run: flutter clean
@@ -41,7 +50,7 @@ jobs:
       - name: Analyze
         run: flutter analyze
 
-      - name: Build APK
+      - name: Build Android APK
         run: flutter build apk --debug
 
       - name: Upload APK
