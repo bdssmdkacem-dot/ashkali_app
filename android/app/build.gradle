@@ -6,6 +6,7 @@ plugins {
 
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file("local.properties")
+
 if (localPropertiesFile.exists()) {
     localPropertiesFile.withReader("UTF-8") { reader ->
         localProperties.load(reader)
@@ -17,8 +18,19 @@ def flutterVersionName = localProperties.getProperty("flutter.versionName") ?: "
 
 android {
     namespace "com.ashkali.app"
-    compileSdk 34
+
+    compileSdk 36
     ndkVersion flutter.ndkVersion
+
+    defaultConfig {
+        applicationId "com.ashkali.app"
+
+        minSdk 23
+        targetSdk 36
+
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -26,26 +38,25 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17
+        jvmTarget = "17"
     }
 
     sourceSets {
         main.java.srcDirs += "src/main/kotlin"
     }
 
-    defaultConfig {
-        applicationId "com.ashkali.app"
-        minSdk 23
-        targetSdk 34
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+    packaging {
+        resources {
+            excludes += [
+                    "META-INF/LICENSE*",
+                    "META-INF/NOTICE*",
+                    "META-INF/DEPENDENCIES"
+            ]
+        }
     }
 
     buildTypes {
         release {
-            // Signed with the debug key by default so `flutter build apk`
-            // works out of the box. Replace with your own release keystore
-            // before publishing to the Play Store.
             signingConfig signingConfigs.debug
             minifyEnabled false
             shrinkResources false
