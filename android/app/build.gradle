@@ -48,14 +48,18 @@ android {
     packaging {
         resources {
             excludes += [
-                    "META-INF/LICENSE*",
-                    "META-INF/NOTICE*",
-                    "META-INF/DEPENDENCIES"
+                "META-INF/LICENSE*",
+                "META-INF/NOTICE*",
+                "META-INF/DEPENDENCIES"
             ]
         }
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+        }
+
         release {
             signingConfig signingConfigs.debug
             minifyEnabled false
